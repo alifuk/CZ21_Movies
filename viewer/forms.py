@@ -4,7 +4,21 @@ from django.forms import (
 import re
 from django.forms import ModelForm
 from viewer.models import Genre, Movie
-from viewer.validators import capitalized_validator, PastMonthField
+
+def capitalized_validator(value):
+  if value[0].islower():
+    raise ValidationError('Value must be capitalized.')
+class PastMonthField(DateField):
+
+  def validate(self, value):
+    super().validate(value)
+    if value >= date.today():
+      raise ValidationError('Only past dates allowed here.')
+
+  def clean(self, value):
+    result = super().clean(value)
+    return date(year=result.year, month=result.month, day=1)
+
 
 class MovieForm(ModelForm):
 
@@ -12,9 +26,9 @@ class MovieForm(ModelForm):
     model = Movie
     fields = '__all__'
 
-  title = CharField(validators=[capitalized_validator])
-  rating = IntegerField(min_value=1, max_value=10)
-  released = PastMonthField()
+  #title = CharField(validators=[capitalized_validator])
+  #rating = IntegerField(min_value=1, max_value=10)
+  #released = PastMonthField()
 
   def clean_description(self):
     # Každá věta bude začínat velkým písmenem
