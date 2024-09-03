@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from viewer.models import Genre, Movie
-from viewer.views import hello, MoviesView, MovieCreateView
+from viewer.views import hello, MoviesView, MovieCreateView, MovieUpdateView, MovieDeleteView
 
 admin.site.register(Genre)
 admin.site.register(Movie)
@@ -27,5 +27,7 @@ urlpatterns = [
   path('hello/<s0>', hello),
   #path('', views.movies), #Function based view
   path('', MoviesView.as_view(), name='index'), #Class based view
-  path('movie/create', MovieCreateView.as_view(), name='movie_create')
+  path('movie/create', MovieCreateView.as_view(), name='movie_create'),
+  path('movie/update/<pk>', MovieUpdateView.as_view(), name='movie_update'),
+  path('movie/delete/<pk>', MovieDeleteView.as_view(), name='movie_delete')
 ]
