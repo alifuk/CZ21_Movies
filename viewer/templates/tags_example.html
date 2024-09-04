@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+
+    Jmeno: {{ jmeno }} <br>
+    Jmeno upper: {{ jmeno|upper }} <br>
+    Jmeno lower: {{ jmeno|lower }} <br>
+    Jmeno escape: {{ jmeno|escape }} <br>
+    Jmeno title: {{ jmeno|title }} <br><br>
+
+    vek floatformat: {{ vek|floatformat  }} <br>
+    vek floatformat:1: {{ vek|floatformat:1  }} <br>
+    vek floatformat:"0": {{ vek|floatformat:"0"  }} <br>
+
+    První film je: {{ first_movie.title }} s hodnocením
+    {{ first_movie.rating }} <br>
+
+    Notebook Lucie je: {{ notebooky.Lucie }} <br>
+    Notebook Karla je: {{ notebooky.Karel }} <br>
+
+    <b>kids|join:</b> {{ kids|join:"--" }}<br>
+    <b>kids|first:</b> {{ kids|first }}<br>
+    <b>kids|last:</b> {{ kids|last }}<br>
+    <b>kids|length:</b> {{ kids|length }}<br>
+    {% if kids|length == 0 %}
+        Děti nejsou
+    {% endif %}
+    <hr>
+    <b>lineexample:</b> {{ lineexample|linebreaksbr  }}<br>
+    {{ kids|slice:"1:" }}<br>
+    {{ "Božena je v europarlamentu"|slugify }}<br>
+    {{ "Božena je v euroPARlamentu"|title }}<br>
+    
+
+
+
+
+{% endblock %}

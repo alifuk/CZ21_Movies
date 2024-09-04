@@ -18,7 +18,24 @@ def movies(request):
     request, template_name='movies.html',
     context={'movies': Movie.objects.all()}
   )
-  
+
+def tags_example(request):
+  return render(
+    request, template_name='tags_example.html',
+    context={'movies': Movie.objects.all(),
+              "first_movie": Movie.objects.first(),
+              "notebooky": {
+                  "Lucie": "Asus",
+                  "Karel": "Lenovo",
+                },
+              "jmeno": "Albert",
+              "vek": 77.9800,
+              "kids": ["Julie", "Aleš", "Karel"],
+              "lineexample": "Radek1\n radek2",
+              "pocet_kusu": 6,
+              "value": timezone.now()
+        }
+) 
 LOGGER = getLogger()
   
 class MoviesView(ListView):
