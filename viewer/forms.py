@@ -43,3 +43,15 @@ class MovieForm(ModelForm):
         "Commedies aren't so good to be rated over 5."
       )
     return result
+
+class GenreForm(ModelForm):
+  class Meta:
+    model = Genre
+    fields = '__all__'
+
+
+class SearchForm(Form):
+  search_field = CharField(max_length=128)
+
+
+

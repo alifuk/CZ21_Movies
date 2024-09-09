@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from viewer.models import Movie
+from viewer.models import Movie, Genre
 from django.views.generic import FormView, ListView, CreateView, UpdateView, DeleteView
 from logging import getLogger
-from viewer.forms import MovieForm
+from viewer.forms import MovieForm, GenreForm, SearchForm
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def hello(request, s0):
   s1 = request.GET.get('s1', '')
@@ -12,6 +14,16 @@ def hello(request, s0):
     context={'adjectives': [s0, s1, 'beautiful', 'wonderful']}
   )
 
+@login_required
+def search(request):
+    to_find = request.GET.get("search_field", "")
+    return render(
+        request, template_name='search.html', context={
+            "movies": Movie.objects.filter(title__contains=to_find),
+            "genres": Genre.objects.filter(name__contains=to_find),
+            "search_form": SearchForm,
+        }
+    )
 
 def movies(request):
   return render(
@@ -43,7 +55,7 @@ class MoviesView(ListView):
   model = Movie 
 
 
-class MovieCreateView(CreateView):
+class MovieCreateView(LoginRequiredMixin, CreateView):
 
   template_name = 'form.html'
   form_class = MovieForm
@@ -70,3 +82,31 @@ class MovieDeleteView(DeleteView):
   template_name = 'movie_confirm_delete.html'
   model = Movie
   success_url = reverse_lazy('index')
+
+class GenresView(ListView):
+  template_name = 'genres.html'
+  model = Genre
+
+class GenreCreateView(CreateView):
+  template_name = 'genre_form.html'
+  form_class = GenreForm
+  success_url = reverse_lazy('genres')
+
+  def form_invalid(self, form):
+      LOGGER.warning(f'User provided invalid data. {form.errors}')
+      return super().form_invalid(form)
+
+class GenreUpdateView(UpdateView):
+  template_name = 'genre_form.html'
+  model = Genre
+  form_class = GenreForm
+  success_url = reverse_lazy('genres')
+
+  def form_invalid(self, form):
+      LOGGER.warning('User provided invalid data while updating a movie.')
+      return super().form_invalid(form)
+
+class GenreDeleteView(DeleteView):
+  template_name = 'genre_confirm_delete.html'
+  model = Genre
+  success_url = reverse_lazy('genres')

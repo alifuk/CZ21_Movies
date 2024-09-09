@@ -1,0 +1,51 @@
+{% extends 'base_alternative.html' %}
+
+{% block content %}
+    <h1>Search {{ request.user }} {{ request.user.is_authenticated }}</h1>
+    <form action="{% url 'search' %}" method="GET">
+    
+    <table>{{ search_form }}</table>
+        <input type="submit">
+    </form>
+
+    <h2>Found movies</h2>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Rating</th>
+      <th scope="col">Released</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for movie in movies %}
+    <tr>
+          <th scope="row">{{ movie.pk }}</th>
+          <td>{{ movie.title }}</td>
+          <td>{{ movie.rating }}</td>
+          <td>{{ movie.released }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+    <h2>Found genres</h2>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for genre in genres %}
+    <tr>
+          <th scope="row">{{ genre.pk }}</th>
+          <td>{{ genre.name }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

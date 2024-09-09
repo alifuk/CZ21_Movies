@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth.views import LoginView, LogoutView
 
 from viewer.models import Genre, Movie
-from viewer.views import hello, MoviesView, MovieCreateView, MovieUpdateView, MovieDeleteView, tags_example
+from viewer.views import hello, search, MoviesView, MovieCreateView, MovieUpdateView, MovieDeleteView, tags_example
+from viewer.views import GenresView, GenreCreateView, GenreUpdateView, GenreDeleteView
 
 admin.site.register(Genre)
 admin.site.register(Movie)
@@ -30,5 +32,14 @@ urlpatterns = [
     path('', MoviesView.as_view(), name='index'), #Class based view
     path('movie/create', MovieCreateView.as_view(), name='movie_create'),
     path('movie/update/<pk>', MovieUpdateView.as_view(), name='movie_update'),
-    path('movie/delete/<pk>', MovieDeleteView.as_view(), name='movie_delete')
+    path('movie/delete/<pk>', MovieDeleteView.as_view(), name='movie_delete'),    
+    path('accounts/login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+
+    path('genres', GenresView.as_view(), name='genres'), #Class based view
+    path('genre/create', GenreCreateView.as_view(), name='genre_create'),
+    path('genre/update/<pk>', GenreUpdateView.as_view(), name='genre_update'),
+    path('genre/delete/<pk>', GenreDeleteView.as_view(), name='genre_delete'),
+    path('search', search, name='search'),  # Class based view
+
 ]
