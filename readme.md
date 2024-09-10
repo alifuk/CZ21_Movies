@@ -29,7 +29,9 @@ v Adminovi je uživatelské jméno "1234" a heslo "1234"
 - Do SETTINGs nastavit (LOGIN_REDIRECT_URL a LOGOUT_REDIRECT_URL)(https://github.com/alifuk/CZ21_Movies/blob/master/hollymovies/settings.py) 
 - Dát nějaké views za dekorátor `@login_required` či `LoginRequiredMixin` pokud se jedná o třídu - viz prezentace
 
-
+# TASK na 10.9.2024:
+- Pokud nemám TASK na 9.9.2024, tak udělat ten
+- Udělat registraci, změnu hesla viz. urls.py, views.py, forms.py
 
 
 
