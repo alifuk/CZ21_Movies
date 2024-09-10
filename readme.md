@@ -20,7 +20,8 @@ v Adminovi je uživatelské jméno "1234" a heslo "1234"
 
 [Dokumentace QuerySet](https://docs.djangoproject.com/en/5.1/ref/models/querysets/)
 
-
+# Přehled naší django aplikace
+![django_overview](django_overview.jpg)
 
 
 # TASK na 9.9.2024:
