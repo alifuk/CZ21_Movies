@@ -45,6 +45,10 @@
                     <a class="nav-item nav-link active" href="{% url 'login' %}">
                         Login
                     </a>
+                    <a class="nav-item nav-link active" href="{% url 'sign_up' %}">
+                        Sign up
+                    </a>
+                        
                     {% endif %}
                 </div>
             </div>
@@ -55,6 +59,9 @@
             {% block content %}{% endblock %}
         </div>
     </div>
+
+
+
 </body>
 
 </html>

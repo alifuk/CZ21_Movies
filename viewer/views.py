@@ -1,11 +1,19 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import render
 from viewer.models import Movie, Genre
 from django.views.generic import FormView, ListView, CreateView, UpdateView, DeleteView
 from logging import getLogger
 from viewer.forms import MovieForm, GenreForm, SearchForm
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+
+from django.views.generic import CreateView
+
+from viewer.forms import (
+  SignUpForm
+)
+
 
 def hello(request, s0):
   s1 = request.GET.get('s1', '')
@@ -52,7 +60,7 @@ LOGGER = getLogger()
   
 class MoviesView(ListView):
   template_name = 'movies.html'
-  model = Movie 
+  model = Movie
 
 
 class MovieCreateView(LoginRequiredMixin, CreateView):
@@ -66,12 +74,13 @@ class MovieCreateView(LoginRequiredMixin, CreateView):
     return super().form_invalid(form)
 
     
-class MovieUpdateView(UpdateView):
+class MovieUpdateView(PermissionRequiredMixin, UpdateView):
 
   template_name = 'form.html'
   model = Movie
   form_class = MovieForm
   success_url = reverse_lazy('index')
+  permission_required = 'viewer.change_movie'
 
   def form_invalid(self, form):
     LOGGER.warning('User provided invalid data while updating a movie.')
@@ -110,3 +119,13 @@ class GenreDeleteView(DeleteView):
   template_name = 'genre_confirm_delete.html'
   model = Genre
   success_url = reverse_lazy('genres')
+
+
+
+class SignUpView(CreateView):
+  template_name = 'form.html'
+  form_class = SignUpForm
+  success_url = reverse_lazy('index')
+
+class SubmittablePasswordChangeView(PasswordChangeView):
+    template_name = 'form.html'

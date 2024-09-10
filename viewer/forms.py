@@ -54,4 +54,16 @@ class SearchForm(Form):
   search_field = CharField(max_length=128)
 
 
+from django.contrib.auth.forms import (
+  AuthenticationForm, PasswordChangeForm, UserCreationForm
+)
+class SignUpForm(UserCreationForm):
+
+  class Meta(UserCreationForm.Meta):
+    fields = ['username', 'first_name', 'last_name']
+
+  def save(self, commit=True):
+    self.instance.is_active = True
+    return super().save(commit)
+
 
