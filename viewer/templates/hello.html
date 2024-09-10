@@ -7,5 +7,16 @@
         <p>This is a {{ adjective }} world...</p>
       {% endif %}
     {% endfor %}
+    GR:
+    {% for group in request.user.groups.all %}
+    <h3>{{ group }} </h3>
+        {% for perm in group.permissions.all %}
+            {{ perm }}
+        {% endfor %}
+    {% endfor %}
+    <h5>Perm:</h5>
+  {% for perm in request.user.user_permissions.all %}
+  {{ perm }} - {{ perm.codename }}<br>
+  {%  endfor %}
   </body>
 </html>

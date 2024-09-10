@@ -13,12 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 
 from viewer.models import Genre, Movie
-from viewer.views import hello, search, MoviesView, MovieCreateView, MovieUpdateView, MovieDeleteView, tags_example
+from viewer.views import mypage, hello, search, MoviesView, MovieCreateView, MovieUpdateView, MovieDeleteView, tags_example
 from viewer.views import SubmittablePasswordChangeView, SignUpView, GenresView, GenreCreateView, GenreUpdateView, GenreDeleteView
 from django.contrib.auth import views
 
@@ -27,6 +28,8 @@ admin.site.register(Movie)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('mypage/', mypage, name='mypage'),
+
     path('hello/<s0>', hello),
     path('tags_example', tags_example),
     # path('', views.movies), #Function based view

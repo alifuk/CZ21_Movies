@@ -1,3 +1,5 @@
+from lib2to3.fixes.fix_input import context
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import render
@@ -13,7 +15,13 @@ from django.views.generic import CreateView
 from viewer.forms import (
   SignUpForm
 )
-
+from django.contrib.auth.models import User
+def mypage(request):
+    return render(
+        request,
+        "mypage.html",
+        context={}
+    )
 
 def hello(request, s0):
   s1 = request.GET.get('s1', '')
@@ -34,6 +42,7 @@ def search(request):
     )
 
 def movies(request):
+
   return render(
     request, template_name='movies.html',
     context={'movies': Movie.objects.all()}
@@ -63,11 +72,12 @@ class MoviesView(ListView):
   model = Movie
 
 
-class MovieCreateView(LoginRequiredMixin, CreateView):
+class MovieCreateView(PermissionRequiredMixin, CreateView):
 
   template_name = 'form.html'
   form_class = MovieForm
   success_url = reverse_lazy('movie_create')
+  permission_required = 'viewer.add_movie'
 
   def form_invalid(self, form):
     LOGGER.warning(f'User provided invalid data. {form.errors}')

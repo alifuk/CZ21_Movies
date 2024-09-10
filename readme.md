@@ -52,6 +52,9 @@ v Adminovi je uživatelské jméno "1234" a heslo "1234"
 # TASK na 10.9.2024:
 - Pokud nemám TASK na 9.9.2024, tak udělat ten
 - Udělat registraci, změnu hesla viz. urls.py, views.py, forms.py
+- V admin rozhraní přidat oprávnění uživateli
+- View nastavit požadované oprávnění (PermissionRequiredMixin)
+- Vyzkoušet, blokování stránky, pokud uživatel nemá oprávnění
 
 
 
