@@ -38,6 +38,7 @@ v Adminovi je uživatelské jméno "1234" a heslo "1234"
 - Filtrování objektů z DB, získání jednoho konkrétního objektu 
 - Vytvořit HTML formulář - viz `form.html`
 - Vytvořit formulář pomocí třídy (příklad v `forms.py`) a poté ho vykreslit pomocí FormView (viz prezentace vyhledej 'FormView')
+- Vložit do šablony statický soubor (css, js, jpg, svg)
 
 ## Tipy
 - id/primární klíč konkrétního záznamu získám jako **car.pk**
