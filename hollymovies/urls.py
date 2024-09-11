@@ -18,13 +18,14 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 
-from viewer.models import Genre, Movie
+from viewer.models import Genre, Movie, Actor
 from viewer.views import mypage, hello, search, MoviesView, MovieCreateView, MovieUpdateView, MovieDeleteView, tags_example
 from viewer.views import SubmittablePasswordChangeView, SignUpView, GenresView, GenreCreateView, GenreUpdateView, GenreDeleteView
 from django.contrib.auth import views
 
 admin.site.register(Genre)
 admin.site.register(Movie)
+admin.site.register(Actor)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

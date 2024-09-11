@@ -7,6 +7,9 @@
     {% for movie in object_list %}
       <li>
           {{ movie.title }} ({{ movie.released.year }}) - {{ movie.genre.name }}
+          {% for actor in movie.actor_set.all %}
+              <h4>Actor: {{ actor }}</h4>
+              {% endfor %}
           <a href="{% url 'movie_update' movie.pk %}"> Update </a>
       <a href="{% url 'movie_delete' movie.pk %}"> Delete </a>
       </li>
