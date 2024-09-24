@@ -1,3 +1,7 @@
+- [ ] Neodškrtlo
+- [x] Zaškrtlo
+
+
 ##
 v Adminovi je uživatelské jméno "1234" a heslo "1234"
 
