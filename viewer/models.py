@@ -8,6 +8,7 @@ class Genre(Model):
   name = CharField(max_length=128)
 
 
+
 class Movie(Model):
   title = CharField(max_length=128)
   genre = ForeignKey(Genre, on_delete=DO_NOTHING)
