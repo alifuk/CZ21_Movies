@@ -25,3 +25,11 @@ class Actor(Model):
   def __str__(self):
     return f"{self.first_name} {self.last_name}"
 
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
+class Building(Model):
+  company = CharField(max_length=128)
+  floors = IntegerField()
+  user = ForeignKey(User, on_delete=DO_NOTHING, default=1)
+

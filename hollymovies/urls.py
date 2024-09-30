@@ -18,14 +18,17 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 
-from viewer.models import Genre, Movie, Actor
+from viewer.models import Genre, Movie, Actor, Building
 from viewer.views import mypage, hello, search, MoviesView, MovieCreateView, MovieUpdateView, MovieDeleteView, tags_example
 from viewer.views import SubmittablePasswordChangeView, SignUpView, GenresView, GenreCreateView, GenreUpdateView, GenreDeleteView
+from viewer.views import BuildingView, BuildingCreateView, BuildingUpdateView, BuildingDeleteView
 from django.contrib.auth import views
 
 admin.site.register(Genre)
 admin.site.register(Movie)
 admin.site.register(Actor)
+admin.site.register(Building)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -57,5 +60,11 @@ urlpatterns = [
     path('genre/update/<pk>', GenreUpdateView.as_view(), name='genre_update'),
     path('genre/delete/<pk>', GenreDeleteView.as_view(), name='genre_delete'),
     path('search', search, name='search'),  # Class based view
+
+
+    path('building', BuildingView.as_view(), name='building'),
+    path('building/create', BuildingCreateView.as_view(), name='building_add'),
+    path('building/update/<pk>', BuildingUpdateView.as_view(), name='building_update'),
+    path('building/delete/<pk>', BuildingDeleteView.as_view(), name='building_delete'),
 
 ]

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Stránka budov</h1>
+<a href="{% url 'building_add' %}">Přidat budovu</a>
+
+{% for building in buildings %}
+<p>Budova: {{building.company}} s počtem pater {{building.floors}}
+    <a href="{% url 'building_update' building.pk %}">upravit</a>
+    <a href="{% url 'building_delete' building.pk %}">smazat</a></p>
+{% endfor %}
+{% endblock %}

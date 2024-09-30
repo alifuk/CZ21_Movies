@@ -3,10 +3,10 @@ from lib2to3.fixes.fix_input import context
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import render
-from viewer.models import Movie, Genre
-from django.views.generic import FormView, ListView, CreateView, UpdateView, DeleteView
+from viewer.models import Movie, Genre, Building
+from django.views.generic import FormView, ListView, CreateView, UpdateView, DeleteView, TemplateView
 from logging import getLogger
-from viewer.forms import MovieForm, GenreForm, SearchForm
+from viewer.forms import MovieForm, GenreForm, SearchForm, BuildingForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
@@ -139,3 +139,26 @@ class SignUpView(CreateView):
 
 class SubmittablePasswordChangeView(PasswordChangeView):
     template_name = 'form.html'
+
+
+
+
+class BuildingView(TemplateView):
+  template_name = 'building.html'
+  extra_context = {'buildings': Building.objects.all()}
+
+class BuildingCreateView(CreateView):
+  template_name = 'building_form.html'
+  form_class = BuildingForm
+  success_url = reverse_lazy('building')
+
+class BuildingUpdateView(UpdateView):
+  template_name = 'building_form.html'
+  model = Building
+  form_class = BuildingForm
+  success_url = reverse_lazy('building')
+
+class BuildingDeleteView(DeleteView):
+  template_name = 'building_form.html'
+  model = Building
+  success_url = reverse_lazy('building')

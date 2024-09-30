@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+#building_form tr {
+
+    }
+tbody:nth-child(1){
+    color: pink !important;
+    }
+
+</style>
+<form method="POST">
+    {% csrf_token %}
+    <table id="building_form">
+        {{form}}
+    </table>
+    <input type="submit" value="Hotovo">
+</form>
+
+{% endblock %}
