@@ -2,13 +2,9 @@
 
 {% block content %}
 <style>
-#building_form tr {
-
-    }
-tbody:nth-child(1){
-    color: pink !important;
-    }
-
+table tr:nth-child(3) {
+    background: #ccc;
+}
 </style>
 <form method="POST">
     {% csrf_token %}
