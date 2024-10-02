@@ -11,11 +11,16 @@
     <br>
     <br>
       <h2>Film: {{ movie.title }} ({{ movie.released.year }}) - {{ movie.genre.name }}</h2>
-          {% for actor in movie.actor_set.all %}
-              <h4>Actor: {{ actor }}</h4>
-              {% endfor %}
+            {% for actor in movie.actor_set.all %}
+                <h4>Actor: {{ actor }}</h4>
+            {% endfor %}
+            {% for comment in movie.comment_set.all %}
+                <h4 style="color: pink">Komentář: {{ comment.text }}</h4>
+            {% endfor %}
           <a href="{% url 'movie_update' movie.pk %}"> Update </a>
       <a href="{% url 'movie_delete' movie.pk %}"> Delete </a>
+      <a href="{% url 'comment_add' movie.pk %}"> Přidat komentář </a>
+
 
     {% endfor %}
 

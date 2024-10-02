@@ -3,7 +3,7 @@ from django.forms import (
 )
 import re
 from django.forms import ModelForm
-from viewer.models import Genre, Movie, Building
+from viewer.models import Genre, Movie, Building, Comment
 
 def capitalized_validator(value):
   if value[0].islower():
@@ -74,3 +74,9 @@ class BuildingForm(ModelForm):
   class Meta:
     model = Building
     fields = '__all__'
+
+class CommentForm(ModelForm):
+  class Meta:
+    model = Comment
+    fields = ['text']
+

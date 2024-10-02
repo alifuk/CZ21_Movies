@@ -3,10 +3,10 @@ from lib2to3.fixes.fix_input import context
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import render
-from viewer.models import Movie, Genre, Building
+from viewer.models import Movie, Genre, Building, Comment
 from django.views.generic import FormView, ListView, CreateView, UpdateView, DeleteView, TemplateView
 from logging import getLogger
-from viewer.forms import MovieForm, GenreForm, SearchForm, BuildingForm
+from viewer.forms import MovieForm, GenreForm, SearchForm, BuildingForm, CommentForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
@@ -162,3 +162,15 @@ class BuildingDeleteView(DeleteView):
   template_name = 'building_form.html'
   model = Building
   success_url = reverse_lazy('building')
+
+class CommentCreateView(FormView):
+    template_name = 'form.html'
+    form_class = CommentForm
+    success_url = reverse_lazy('index')
+
+    def form_valid(self, form):
+        new_comment = form.save(commit=False)
+        new_comment.movie = Movie.objects.get(pk=int(self.kwargs["pk"]))
+        new_comment.save()
+        return super().form_valid(form)
+    pass

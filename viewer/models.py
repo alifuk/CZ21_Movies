@@ -33,3 +33,10 @@ class Building(Model):
   floors = IntegerField()
   user = ForeignKey(User, on_delete=DO_NOTHING, default=1)
 
+
+class Comment(Model):
+  movie = ForeignKey(Movie, on_delete=DO_NOTHING, default=1)
+  text = CharField(max_length=128)
+
+  def __str__(self):
+    return f"Komentář: {self.text} k filmu {self.movie.title}"
