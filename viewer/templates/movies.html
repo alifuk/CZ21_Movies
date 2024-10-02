@@ -3,18 +3,21 @@
 {% block content %}
   <h1>Welcome to HollyMovies!</h1>
     <a href="{% url 'movie_create' %}"> Add movie </a>
-  <ul>
+
+    <h1>Filmy:</h1>
     {% for movie in object_list %}
-      <li>
-          {{ movie.title }} ({{ movie.released.year }}) - {{ movie.genre.name }}
+
+    <br>
+    <br>
+    <br>
+      <h2>Film: {{ movie.title }} ({{ movie.released.year }}) - {{ movie.genre.name }}</h2>
           {% for actor in movie.actor_set.all %}
               <h4>Actor: {{ actor }}</h4>
               {% endfor %}
           <a href="{% url 'movie_update' movie.pk %}"> Update </a>
       <a href="{% url 'movie_delete' movie.pk %}"> Delete </a>
-      </li>
+
     {% endfor %}
-  </ul>
 
     
 {% endblock %}
