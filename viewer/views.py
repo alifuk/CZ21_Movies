@@ -2,6 +2,7 @@ from lib2to3.fixes.fix_input import context
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordChangeView
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from viewer.models import Movie, Genre, Building, Comment
 from django.views.generic import FormView, ListView, CreateView, UpdateView, DeleteView, TemplateView
@@ -156,7 +157,11 @@ class BuildingUpdateView(UpdateView):
   template_name = 'building_form.html'
   model = Building
   form_class = BuildingForm
-  success_url = reverse_lazy('building')
+  #success_url = reverse_lazy('building')
+
+  def get_success_url(self):
+      kategorie_pk = Building.objects.get(pk= self.kwargs['pk']).kategorie.pk
+      return reverse_lazy('company', kwargs={'pk': kategorie_pk})
 
 class BuildingDeleteView(DeleteView):
   template_name = 'building_form.html'
@@ -174,3 +179,19 @@ class CommentCreateView(FormView):
         new_comment.save()
         return super().form_valid(form)
     pass
+
+
+def api_moviesgetall(request):
+    all_movies = Movie.objects.all()
+    json_movies = {}
+    for movie in all_movies:
+        json_movies[movie.pk] = {
+            "title": movie.title
+        }
+    return JsonResponse(json_movies)
+
+def list_movies(request):
+    import requests
+    responce = requests.get("http://127.0.0.1:8000/api/movies/get_all")
+    filmy = responce.json()
+    return render(request, "list_movies.html", context={"movies": filmy})

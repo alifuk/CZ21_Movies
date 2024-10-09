@@ -22,6 +22,7 @@ from viewer.models import Genre, Movie, Actor, Building, Comment
 from viewer.views import mypage, hello, search, MoviesView, MovieCreateView, MovieUpdateView, MovieDeleteView, tags_example
 from viewer.views import SubmittablePasswordChangeView, SignUpView, GenresView, GenreCreateView, GenreUpdateView, GenreDeleteView
 from viewer.views import BuildingView, BuildingCreateView, BuildingUpdateView, BuildingDeleteView, CommentCreateView
+from viewer.views import api_moviesgetall, list_movies
 from django.contrib.auth import views
 
 admin.site.register(Genre)
@@ -69,4 +70,9 @@ urlpatterns = [
     path('building/delete/<pk>', BuildingDeleteView.as_view(), name='building_delete'),
 
     path('comment/create/<pk>', CommentCreateView.as_view(), name='comment_add'),
+
+
+    path('api/movies/get_all', api_moviesgetall, name='api_moviesgetall'),
+
+    path('list_movies', list_movies, name='list_movies'),
 ]
