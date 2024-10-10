@@ -76,5 +76,6 @@ urlpatterns = [
 
 
 
+
     path('list_movies', list_movies, name='list_movies'),
 ]
