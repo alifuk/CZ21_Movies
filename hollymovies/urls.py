@@ -74,5 +74,7 @@ urlpatterns = [
 
     path('api/movies/get_all', api_moviesgetall, name='api_moviesgetall'),
 
+
+
     path('list_movies', list_movies, name='list_movies'),
 ]
