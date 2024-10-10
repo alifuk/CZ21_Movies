@@ -42,8 +42,21 @@ def search(request):
         }
     )
 
+@login_required
+def add_user_to_group(request):
+    from django.contrib.auth.models import Group
+    request.user.groups.add(Group.objects.first())
+    pass
+
+    return render(
+        request, template_name='movies.html',
+        context={'movies': Movie.objects.all()}
+    )
+
+
 def movies(request):
 
+  request.user.groups.append()
   return render(
     request, template_name='movies.html',
     context={'movies': Movie.objects.all()}
@@ -103,14 +116,15 @@ class MovieDeleteView(DeleteView):
   model = Movie
   success_url = reverse_lazy('index')
 
-class GenresView(ListView):
+class GenresView(LoginRequiredMixin ,ListView):
   template_name = 'genres.html'
   model = Genre
 
-class GenreCreateView(CreateView):
+class GenreCreateView(PermissionRequiredMixin,CreateView):
   template_name = 'genre_form.html'
   form_class = GenreForm
   success_url = reverse_lazy('genres')
+  permission_required = 'viewer.add_building'
 
   def form_invalid(self, form):
       LOGGER.warning(f'User provided invalid data. {form.errors}')

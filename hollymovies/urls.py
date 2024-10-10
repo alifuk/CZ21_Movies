@@ -30,7 +30,9 @@ admin.site.register(Movie)
 admin.site.register(Actor)
 admin.site.register(Building)
 admin.site.register(Comment)
-
+from django.contrib.auth.models import Permission
+admin.site.register(Permission)
+from viewer.views import add_user_to_group
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -38,6 +40,7 @@ urlpatterns = [
 
     path('hello/<s0>', hello),
     path('tags_example', tags_example),
+    path("add_user_to_group", add_user_to_group),
     # path('', views.movies), #Function based view
     path('', MoviesView.as_view(), name='index'),  # Class based view
     path('movie/create', MovieCreateView.as_view(), name='movie_create'),
